@@ -109,13 +109,6 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
 
-
-      const nothing = await fakeRequest(app)
-        .get('/candies/100')
-        .expect('Content-Type', /json/)
-        .expect(200);
-
-      expect(nothing.body).toEqual('');
     });
   });
 });
