@@ -30,36 +30,93 @@ describe('app routes', () => {
     afterAll(done => {
       return client.end(done);
     });
-
-    test('returns animals', async() => {
+    test('returns all routes', async() => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          "id": 1,
+          "location": "Smith Rocks",
+          "route_name": "5 Gallon Bucket",
+          "route_rating": "5.8",
+          "is_toprope": false,
+          "owner_id": 1
         },
         {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
+          "id": 2,
+          "location": "Smith Rocks",
+          "route_name": "Spiderman",
+          "route_rating": "5.7",
+          "is_toprope": false,
+          "owner_id": 1
         },
         {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
+          "id": 3,
+          "location": "Smith Rocks",
+          "route_name": "Rope De Dope",
+          "route_rating": "5.8",
+          "is_toprope": true,
+          "owner_id": 1
+        },
+        {
+          "id": 4,
+          "location": "Yosemite",
+          "route_name": "Moby Dick",
+          "route_rating": "5.1",
+          "is_toprope": false,
+          "owner_id": 1
+        },
+        {
+          "id": 5,
+          "location": "Yosemite",
+          "route_name": "The North Face",
+          "route_rating": "5.11",
+          "is_toprope": false,
+          "owner_id": 1
+        },
+        {
+          "id": 6,
+          "location": "Yosemite",
+          "route_name": "The Nutcracker Suite (aka Nutcracker)",
+          "route_rating": "5.8",
+          "is_toprope": false,
+          "owner_id": 1
         }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/routes')
         .expect('Content-Type', /json/)
         .expect(200);
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('returns a single route with the matching id', async() => {
+
+      const expectation = {
+        "id": 6,
+        "location": "Yosemite",
+        "route_name": "The Nutcracker Suite (aka Nutcracker)",
+        "route_rating": "5.8",
+        "is_toprope": false,
+        "owner_id": 1
+      };
+
+      const data = await fakeRequest(app)
+        .get('/route/6')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+
+      const nothing = await fakeRequest(app)
+        .get('/candies/100')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(nothing.body).toEqual('');
+    });
   });
 });
+    
