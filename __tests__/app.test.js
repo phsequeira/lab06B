@@ -103,7 +103,7 @@ describe('app routes', () => {
       };
 
       const data = await fakeRequest(app)
-        .get('/route/6')
+        .get('/routes/6')
         .expect('Content-Type', /json/)
         .expect(200);
 
