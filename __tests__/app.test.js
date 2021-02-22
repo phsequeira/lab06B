@@ -110,6 +110,94 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
 
     });
+
+    test('creates a new route ', async() => {
+      
+      const newRoute = {
+        location: 'red rocks',
+        route_name: 'up and at-em' ,
+        route_rating: '5.10',
+        is_toprope: true,
+      };
+
+      const expectedRoute = {
+        ...newRoute,
+        id: 7,
+        owner_id: 1,
+      };
+
+      const data = await fakeRequest(app)
+        .post('/routes')
+        .send(newRoute)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectedRoute);
+
+      
+      const allRoutes = await fakeRequest(app)
+        .get('/routes')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const upAndAtem = allRoutes.body.find(route => route.route_name === 'up and at-em');
+
+      expect(upAndAtem).toEqual(expectedRoute);
+    });
+
+    test('updates a route', async() => {
+      const newRoute = {
+        location: 'red rocks',
+        route_name: 'up and at-em' ,
+        route_rating: '5.10',
+        is_toprope: true,
+      };
+
+      const expectedRoute = {
+        ...newRoute,
+        owner_id: 1,
+        id: 1
+      };
+      
+
+      await fakeRequest(app)
+        .put('/routes/1')
+        .send(newRoute)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const updatedRoute = await fakeRequest(app)
+        .get('/routes/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(updatedRoute.body).toEqual(expectedRoute);
+    });
+
+    test('deletes a route from routes with the id', async() => {
+      const expectation = {
+        'id': 7,
+        'location': 'red rocks',
+        'route_name': 'up and at-em' ,
+        'route_rating': '5.10',
+        'is_toprope': true,
+        'owner_id': 1
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/routes/7')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+      const nothing = await fakeRequest(app)
+        .get('/routes/7')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(nothing.body).toEqual('');
+    });
   });
 });
     
