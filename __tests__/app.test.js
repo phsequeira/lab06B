@@ -34,54 +34,54 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          "id": 1,
-          "location": "Smith Rocks",
-          "route_name": "5 Gallon Bucket",
-          "route_rating": "5.8",
-          "is_toprope": false,
-          "owner_id": 1
+            "id": 1,
+            "location_id": 1,
+            "route_name": "5 Gallon Bucket",
+            "route_rating": "5.8",
+            "is_toprope": false,
+            "owner_id": 1
         },
         {
-          "id": 2,
-          "location": "Smith Rocks",
-          "route_name": "Spiderman",
-          "route_rating": "5.7",
-          "is_toprope": false,
-          "owner_id": 1
+            "id": 2,
+            "location_id": 1,
+            "route_name": "Spiderman",
+            "route_rating": "5.7",
+            "is_toprope": false,
+            "owner_id": 1
         },
         {
-          "id": 3,
-          "location": "Smith Rocks",
-          "route_name": "Rope De Dope",
-          "route_rating": "5.8",
-          "is_toprope": true,
-          "owner_id": 1
+            "id": 3,
+            "location_id": 1,
+            "route_name": "Rope De Dope",
+            "route_rating": "5.8",
+            "is_toprope": true,
+            "owner_id": 1
         },
         {
-          "id": 4,
-          "location": "Yosemite",
-          "route_name": "Moby Dick",
-          "route_rating": "5.1",
-          "is_toprope": false,
-          "owner_id": 1
+            "id": 4,
+            "location_id": 1,
+            "route_name": "Moby Dick",
+            "route_rating": "5.1",
+            "is_toprope": false,
+            "owner_id": 1
         },
         {
-          "id": 5,
-          "location": "Yosemite",
-          "route_name": "The North Face",
-          "route_rating": "5.11",
-          "is_toprope": false,
-          "owner_id": 1
+            "id": 5,
+            "location_id": 1,
+            "route_name": "The North Face",
+            "route_rating": "5.11",
+            "is_toprope": false,
+            "owner_id": 1
         },
         {
-          "id": 6,
-          "location": "Yosemite",
-          "route_name": "The Nutcracker Suite (aka Nutcracker)",
-          "route_rating": "5.8",
-          "is_toprope": false,
-          "owner_id": 1
+            "id": 6,
+            "location_id": 1,
+            "route_name": "The Nutcracker Suite (aka Nutcracker)",
+            "route_rating": "5.8",
+            "is_toprope": false,
+            "owner_id": 1
         }
-      ];
+    ];
 
       const data = await fakeRequest(app)
         .get('/routes')
@@ -95,12 +95,12 @@ describe('app routes', () => {
 
       const expectation = {
         "id": 6,
-        "location": "Yosemite",
+        "location_id": 1,
         "route_name": "The Nutcracker Suite (aka Nutcracker)",
         "route_rating": "5.8",
         "is_toprope": false,
         "owner_id": 1
-      };
+    };
 
       const data = await fakeRequest(app)
         .get('/routes/6')
@@ -114,7 +114,7 @@ describe('app routes', () => {
     test('creates a new route ', async() => {
       
       const newRoute = {
-        location: 'red rocks',
+        location_id: 3,
         route_name: 'up and at-em' ,
         route_rating: '5.10',
         is_toprope: true,
@@ -147,7 +147,7 @@ describe('app routes', () => {
 
     test('updates a route', async() => {
       const newRoute = {
-        location: 'red rocks',
+        location_id: 3,
         route_name: 'up and at-em' ,
         route_rating: '5.10',
         is_toprope: true,
@@ -177,7 +177,7 @@ describe('app routes', () => {
     test('deletes a route from routes with the id', async() => {
       const expectation = {
         'id': 7,
-        'location': 'red rocks',
+        'location_id': 3,
         'route_name': 'up and at-em' ,
         'route_rating': '5.10',
         'is_toprope': true,

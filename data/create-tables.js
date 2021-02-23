@@ -13,13 +13,17 @@ async function run() {
     // run a query to create tables
     await client.query(`
                 CREATE TABLE users (
-                    id SERIAL PRIMARY KEY,
+                    id SERIAL PRIMARY KEY NOT NULL,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );     
+                CREATE TABLE locations (
+                  id SERIAL PRIMARY KEY NOT NULL,
+                  place VARCHAR(512) NOT NULL
+              );      
                 CREATE TABLE routes (
                     id SERIAL PRIMARY KEY NOT NULL,
-                    location VARCHAR(512) NOT NULL,
+                    location_id INTEGER NOT NULL REFERENCES locations(id),
                     route_name VARCHAR(512) NOT NULL,
                     route_rating DECIMAL NOT NULL,
                     is_toprope BOOLEAN NOT NULL,
