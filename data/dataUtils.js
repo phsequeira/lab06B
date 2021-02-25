@@ -1,4 +1,4 @@
-const getLocationId = ({ location }, locations) => locations.find(location === location.place).id;
+const getLocationId = ({ where }, locations) => locations.find(location => where === location.place).id;
 
 module.exports = {
   getLocationId

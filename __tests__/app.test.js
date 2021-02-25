@@ -156,18 +156,18 @@ describe('app routes', () => {
       const expectedRoute = {
         ...newRoute,
         owner_id: 1,
-        id: 1
+        id: 7
       };
       
 
       await fakeRequest(app)
-        .put('/routes/1')
+        .put('/routes/7')
         .send(newRoute)
         .expect('Content-Type', /json/)
         .expect(200);
 
       const updatedRoute = await fakeRequest(app)
-        .get('/routes/1')
+        .get('/routes/7')
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -197,6 +197,30 @@ describe('app routes', () => {
         .expect(200);
 
       expect(nothing.body).toEqual('');
+    });
+    test.only('returns all routes', async() => {
+
+      const expectation = [
+  {
+    "id": 1,
+    "place": "Smith Rocks"
+  },
+  {
+    "id": 2,
+    "place": "Yosemite"
+  },
+  {
+    "id": 3,
+    "place": "Red Rocks"
+  }
+];
+
+      const data = await fakeRequest(app)
+        .get('/locations')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
     });
   });
 });
